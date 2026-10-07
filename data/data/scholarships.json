@@ -1,0 +1,22 @@
+[
+  {
+    "name": "HEC Need-Based Scholarships",
+    "type": "Need Based",
+    "description": "Financial assistance opportunities administered through participating higher education institutions."
+  },
+  {
+    "name": "University Financial Aid",
+    "type": "Need Based",
+    "description": "Many Pakistani universities provide need-based financial assistance to eligible students."
+  },
+  {
+    "name": "Merit Scholarships",
+    "type": "Merit Based",
+    "description": "Scholarships or fee concessions that may be offered based on academic performance."
+  },
+  {
+    "name": "Provincial Education Scholarships",
+    "type": "Government",
+    "description": "Scholarship opportunities may be offered by provincial education departments and related programs."
+  }
+]
