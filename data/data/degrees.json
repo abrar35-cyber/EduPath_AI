@@ -1,0 +1,30 @@
+[
+  {
+    "name": "BS Computer Science",
+    "description": "A broad computing degree covering programming, algorithms, databases, software engineering and computer systems."
+  },
+  {
+    "name": "BS Artificial Intelligence",
+    "description": "A computing degree focused on machine learning, AI systems, data and intelligent applications."
+  },
+  {
+    "name": "BS Data Science",
+    "description": "Combines programming, statistics, data analysis and machine learning."
+  },
+  {
+    "name": "BS Software Engineering",
+    "description": "Focuses on designing, developing, testing and maintaining software systems."
+  },
+  {
+    "name": "BBA",
+    "description": "A business degree covering management, marketing, finance, operations and entrepreneurship."
+  },
+  {
+    "name": "MBBS",
+    "description": "A professional medical degree for students pursuing medicine and clinical careers."
+  },
+  {
+    "name": "Electrical Engineering",
+    "description": "Engineering focused on electrical systems, electronics, control and related technologies."
+  }
+]
