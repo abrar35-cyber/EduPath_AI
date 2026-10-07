@@ -1,0 +1,75 @@
+[
+  {
+    "name": "FAST-NUCES",
+    "city": "Karachi",
+    "type": "Private",
+    "programs": [
+      "BS Computer Science",
+      "BS Artificial Intelligence",
+      "BS Data Science",
+      "BS Software Engineering"
+    ]
+  },
+  {
+    "name": "NED University",
+    "city": "Karachi",
+    "type": "Public",
+    "programs": [
+      "Computer Science",
+      "Software Engineering",
+      "Artificial Intelligence"
+    ]
+  },
+  {
+    "name": "IBA Karachi",
+    "city": "Karachi",
+    "type": "Private",
+    "programs": [
+      "BS Computer Science",
+      "BBA",
+      "Accounting & Finance"
+    ]
+  },
+  {
+    "name": "NUST",
+    "city": "Islamabad / Rawalpindi",
+    "type": "Public",
+    "programs": [
+      "BS Computer Science",
+      "BS Artificial Intelligence",
+      "Engineering"
+    ]
+  },
+  {
+    "name": "COMSATS University",
+    "city": "Islamabad / Rawalpindi",
+    "type": "Public",
+    "programs": [
+      "BS Computer Science",
+      "BS Artificial Intelligence",
+      "BS Data Science",
+      "Software Engineering"
+    ]
+  },
+  {
+    "name": "Bahria University",
+    "city": "Islamabad / Rawalpindi",
+    "type": "Private",
+    "programs": [
+      "BS Computer Science",
+      "BS Artificial Intelligence",
+      "Software Engineering"
+    ]
+  },
+  {
+    "name": "University of Karachi",
+    "city": "Karachi",
+    "type": "Public",
+    "programs": [
+      "Computer Science",
+      "Business",
+      "Commerce",
+      "Sciences"
+    ]
+  }
+]
