@@ -1,0 +1,18 @@
+[
+  {
+    "name": "MDCAT",
+    "description": "Medical and dental college admission test used for relevant undergraduate medical admissions."
+  },
+  {
+    "name": "ECAT",
+    "description": "Engineering admission test used by relevant institutions and admission systems."
+  },
+  {
+    "name": "NET",
+    "description": "NUST Entry Test used for relevant NUST undergraduate admissions."
+  },
+  {
+    "name": "University Entry Tests",
+    "description": "Many Pakistani universities conduct their own admission tests or accept recognized testing pathways."
+  }
+]
