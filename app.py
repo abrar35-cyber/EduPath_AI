@@ -112,10 +112,20 @@ if st.session_state.page == "Home":
         <section class="hero">
             <div class="hero-badge">✨ AI-powered guidance for Pakistani students</div>
 
-            <h1>
-                You passed Intermediate.<br>
-                <span>What comes next?</span>
-            </h1>
+            st.markdown(
+    """
+<h1>
+You passed Intermediate.<br>
+<span>What comes next?</span>
+</h1>
+
+<p>
+Discover the right degree, university, scholarship and career
+path based on your marks, interests, location and goals.
+</p>
+""",
+    unsafe_allow_html=True
+)
 
             <p>
                 Discover the right degree, university, scholarship and career
