@@ -72,7 +72,9 @@ st.markdown(
             <div class="brand-icon">🎓</div>
             <div>
                 <div class="brand-name">EduPath AI</div>
-                <div class="brand-tagline">Your next step after Intermediate</div>
+                <div class="brand-tagline">
+                    Your next step after Intermediate
+                </div>
             </div>
         </div>
     </div>
@@ -98,7 +100,10 @@ for col, (label, page) in zip(nav_cols, nav_items):
             navigate(page)
 
 
-st.markdown("<div class='nav-line'></div>", unsafe_allow_html=True)
+st.markdown(
+    "<div class='nav-line'></div>",
+    unsafe_allow_html=True,
+)
 
 
 # =========================================================
@@ -107,30 +112,25 @@ st.markdown("<div class='nav-line'></div>", unsafe_allow_html=True)
 
 if st.session_state.page == "Home":
 
+    # Hero section
     st.markdown(
         """
         <section class="hero">
-            <div class="hero-badge">✨ AI-powered guidance for Pakistani students</div>
 
-            st.markdown(
-    """
-<h1>
-You passed Intermediate.<br>
-<span>What comes next?</span>
-</h1>
+            <div class="hero-badge">
+                ✨ AI-powered guidance for Pakistani students
+            </div>
 
-<p>
-Discover the right degree, university, scholarship and career
-path based on your marks, interests, location and goals.
-</p>
-""",
-    unsafe_allow_html=True
-)
+            <h1>
+                You passed Intermediate.<br>
+                <span>What comes next?</span>
+            </h1>
 
             <p>
                 Discover the right degree, university, scholarship and career
                 path based on your marks, interests, location and goals.
             </p>
+
         </section>
         """,
         unsafe_allow_html=True,
@@ -145,6 +145,7 @@ path based on your marks, interests, location and goals.
             type="primary",
         ):
             navigate("Profile")
+            st.rerun()
 
     with c2:
         if st.button(
@@ -152,6 +153,7 @@ path based on your marks, interests, location and goals.
             use_container_width=True,
         ):
             navigate("AI Chat")
+            st.rerun()
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -250,17 +252,30 @@ elif st.session_state.page == "Profile":
             placeholder="e.g. Ali Ahmed",
         )
 
+        education_options = [
+            "FSc Pre-Engineering",
+            "FSc Pre-Medical",
+            "ICS",
+            "I.Com",
+            "FA / Humanities",
+            "Other",
+        ]
+
+        current_education = profile.get(
+            "education",
+            education_options[0],
+        )
+
+        education_index = (
+            education_options.index(current_education)
+            if current_education in education_options
+            else 0
+        )
+
         education = st.selectbox(
             "Intermediate group",
-            [
-                "FSc Pre-Engineering",
-                "FSc Pre-Medical",
-                "ICS",
-                "I.Com",
-                "FA / Humanities",
-                "Other",
-            ],
-            index=0,
+            education_options,
+            index=education_index,
         )
 
         percentage = st.number_input(
@@ -270,48 +285,79 @@ elif st.session_state.page == "Profile":
             value=float(profile.get("percentage", 70)),
         )
 
+        location_options = [
+            "Karachi",
+            "Lahore",
+            "Islamabad / Rawalpindi",
+            "Peshawar",
+            "Quetta",
+            "Anywhere in Pakistan",
+            "Abroad",
+        ]
+
+        current_location = profile.get(
+            "location",
+            location_options[0],
+        )
+
+        location_index = (
+            location_options.index(current_location)
+            if current_location in location_options
+            else 0
+        )
+
         location = st.selectbox(
             "Preferred study location",
-            [
-                "Karachi",
-                "Lahore",
-                "Islamabad / Rawalpindi",
-                "Peshawar",
-                "Quetta",
-                "Anywhere in Pakistan",
-                "Abroad",
-            ],
+            location_options,
+            index=location_index,
         )
 
     with col2:
 
+        budget_options = [
+            "Scholarship / Financial Aid Required",
+            "Low Cost",
+            "Under PKR 100,000 per year",
+            "PKR 100,000–300,000 per year",
+            "PKR 300,000–600,000 per year",
+            "Above PKR 600,000 per year",
+        ]
+
+        current_budget = profile.get(
+            "budget",
+            budget_options[0],
+        )
+
+        budget_index = (
+            budget_options.index(current_budget)
+            if current_budget in budget_options
+            else 0
+        )
+
         budget = st.selectbox(
             "Study budget",
-            [
-                "Scholarship / Financial Aid Required",
-                "Low Cost",
-                "Under PKR 100,000 per year",
-                "PKR 100,000–300,000 per year",
-                "PKR 300,000–600,000 per year",
-                "Above PKR 600,000 per year",
-            ],
+            budget_options,
+            index=budget_index,
         )
+
+        interest_options = [
+            "Artificial Intelligence",
+            "Software Development",
+            "Data Science",
+            "Cybersecurity",
+            "Engineering",
+            "Medicine",
+            "Business",
+            "Finance",
+            "Design",
+            "Education",
+            "Research",
+        ]
 
         interests = st.multiselect(
             "Your interests",
-            [
-                "Artificial Intelligence",
-                "Software Development",
-                "Data Science",
-                "Cybersecurity",
-                "Engineering",
-                "Medicine",
-                "Business",
-                "Finance",
-                "Design",
-                "Education",
-                "Research",
-            ],
+            interest_options,
+            default=profile.get("interests", []),
         )
 
         career_goal = st.text_input(
@@ -377,8 +423,12 @@ elif st.session_state.page == "AI Advisor":
             unsafe_allow_html=True,
         )
 
-        if st.button("Create My Profile", type="primary"):
+        if st.button(
+            "Create My Profile",
+            type="primary",
+        ):
             navigate("Profile")
+            st.rerun()
 
     else:
 
@@ -406,11 +456,14 @@ elif st.session_state.page == "AI Advisor":
                 result = get_recommendations(profile)
 
             st.markdown(
-                f"""
-                <div class="ai-result">
-                    {result}
-                </div>
-                """,
+                '<div class="ai-result">',
+                unsafe_allow_html=True,
+            )
+
+            st.markdown(result)
+
+            st.markdown(
+                "</div>",
                 unsafe_allow_html=True,
             )
 
@@ -438,6 +491,7 @@ elif st.session_state.page == "AI Chat":
     for message in st.session_state.chat_history:
 
         if message["role"] == "user":
+
             st.markdown(
                 f"""
                 <div class="chat-user">
@@ -446,7 +500,9 @@ elif st.session_state.page == "AI Chat":
                 """,
                 unsafe_allow_html=True,
             )
+
         else:
+
             st.markdown(
                 f"""
                 <div class="chat-ai">
@@ -489,7 +545,7 @@ elif st.session_state.page == "AI Chat":
 
 
 # =========================================================
-# AGENT
+# AI AGENT
 # =========================================================
 
 elif st.session_state.page == "AI Agent":
@@ -580,20 +636,25 @@ elif st.session_state.page == "AI Agent":
             c1, c2 = st.columns(2)
 
             with c1:
+
                 if st.button(
                     "❤️ Save Result",
                     use_container_width=True,
                 ):
+
                     st.session_state.saved.append(
                         st.session_state.agent_result
                     )
+
                     st.success("Saved!")
 
             with c2:
+
                 if st.button(
                     "Clear",
                     use_container_width=True,
                 ):
+
                     st.session_state.agent_result = None
                     st.rerun()
 
@@ -640,6 +701,10 @@ elif st.session_state.page == "Explore":
                         <h3>🏫 {university["name"]}</h3>
                         <p>
                             {university["city"]} · {university["type"]}
+                        </p>
+                        <p>
+                            <strong>Programs:</strong>
+                            {", ".join(university["programs"])}
                         </p>
                     </div>
                 </div>
