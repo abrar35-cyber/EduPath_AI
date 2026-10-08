@@ -1,4 +1,5 @@
 import streamlit as st
+from textwrap import dedent
 
 from ai import ask_ai, get_recommendations
 from agent import (
@@ -15,9 +16,9 @@ from data import (
 from style import apply_styles
 
 
-# ---------------------------------------------------------
+# =========================================================
 # PAGE CONFIG
-# ---------------------------------------------------------
+# =========================================================
 
 st.set_page_config(
     page_title="EduPath AI",
@@ -29,9 +30,9 @@ st.set_page_config(
 apply_styles()
 
 
-# ---------------------------------------------------------
+# =========================================================
 # SESSION STATE
-# ---------------------------------------------------------
+# =========================================================
 
 if "profile" not in st.session_state:
     st.session_state.profile = {}
@@ -48,11 +49,6 @@ if "chat_history" not in st.session_state:
 if "agent_result" not in st.session_state:
     st.session_state.agent_result = None
 
-
-# ---------------------------------------------------------
-# NAVIGATION
-# ---------------------------------------------------------
-
 if "page" not in st.session_state:
     st.session_state.page = "Home"
 
@@ -61,26 +57,33 @@ def navigate(page):
     st.session_state.page = page
 
 
-# ---------------------------------------------------------
-# TOP NAVIGATION
-# ---------------------------------------------------------
+# =========================================================
+# TOP BAR
+# =========================================================
 
 st.markdown(
-    """
-    <div class="topbar">
-        <div class="brand">
-            <div class="brand-icon">🎓</div>
-            <div>
-                <div class="brand-name">EduPath AI</div>
-                <div class="brand-tagline">
-                    Your next step after Intermediate
+    dedent(
+        """
+        <div class="topbar">
+            <div class="brand">
+                <div class="brand-icon">🎓</div>
+                <div>
+                    <div class="brand-name">EduPath AI</div>
+                    <div class="brand-tagline">
+                        Your next step after Intermediate
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    """,
+        """
+    ),
     unsafe_allow_html=True,
 )
+
+
+# =========================================================
+# NAVIGATION
+# =========================================================
 
 nav_cols = st.columns(7)
 
@@ -96,8 +99,13 @@ nav_items = [
 
 for col, (label, page) in zip(nav_cols, nav_items):
     with col:
-        if st.button(label, use_container_width=True):
+        if st.button(
+            label,
+            key=f"nav_{page}",
+            use_container_width=True,
+        ):
             navigate(page)
+            st.rerun()
 
 
 st.markdown(
@@ -112,35 +120,42 @@ st.markdown(
 
 if st.session_state.page == "Home":
 
-    # Hero section
+    # -------------------------
+    # HERO
+    # -------------------------
+
     st.markdown(
-        """
-        <section class="hero">
+        dedent(
+            """
+            <section class="hero">
 
-            <div class="hero-badge">
-                ✨ AI-powered guidance for Pakistani students
-            </div>
+                <div class="hero-badge">
+                    ✨ AI-powered guidance for Pakistani students
+                </div>
 
-            <h1>
-                You passed Intermediate.<br>
-                <span>What comes next?</span>
-            </h1>
+                <h1>
+                    You passed Intermediate.<br>
+                    <span>What comes next?</span>
+                </h1>
 
-            <p>
-                Discover the right degree, university, scholarship and career
-                path based on your marks, interests, location and goals.
-            </p>
+                <p>
+                    Discover the right degree, university, scholarship
+                    and career path based on your marks, interests,
+                    location and goals.
+                </p>
 
-        </section>
-        """,
+            </section>
+            """
+        ),
         unsafe_allow_html=True,
     )
 
-    c1, c2 = st.columns([1, 1])
+    c1, c2 = st.columns(2)
 
     with c1:
         if st.button(
             "🚀 Build My Roadmap",
+            key="home_roadmap",
             use_container_width=True,
             type="primary",
         ):
@@ -150,6 +165,7 @@ if st.session_state.page == "Home":
     with c2:
         if st.button(
             "🤖 Ask EduPath AI",
+            key="home_chat",
             use_container_width=True,
         ):
             navigate("AI Chat")
@@ -157,14 +173,24 @@ if st.session_state.page == "Home":
 
     st.markdown("<br>", unsafe_allow_html=True)
 
+    # -------------------------
+    # SECTION TITLE
+    # -------------------------
+
     st.markdown(
-        """
-        <div class="section-title">
-            <span>Everything you need for your next step</span>
-        </div>
-        """,
+        dedent(
+            """
+            <div class="section-title">
+                Everything you need for your next step
+            </div>
+            """
+        ),
         unsafe_allow_html=True,
     )
+
+    # -------------------------
+    # FEATURE CARDS
+    # -------------------------
 
     cards = [
         (
@@ -192,30 +218,41 @@ if st.session_state.page == "Home":
     cols = st.columns(4)
 
     for col, (icon, title, description) in zip(cols, cards):
+
         with col:
+
             st.markdown(
-                f"""
-                <div class="feature-card">
-                    <div class="feature-icon">{icon}</div>
-                    <h3>{title}</h3>
-                    <p>{description}</p>
-                </div>
-                """,
+                dedent(
+                    f"""
+                    <div class="feature-card">
+                        <div class="feature-icon">{icon}</div>
+                        <h3>{title}</h3>
+                        <p>{description}</p>
+                    </div>
+                    """
+                ),
                 unsafe_allow_html=True,
             )
 
     st.markdown("<br>", unsafe_allow_html=True)
 
+    # -------------------------
+    # AI TRANSPARENCY
+    # -------------------------
+
     st.markdown(
-        """
-        <div class="info-banner">
-            <strong>🤖 AI Transparency</strong>
-            <br>
-            EduPath AI provides AI-generated guidance. Always verify
-            admission requirements, fees and deadlines on the official
-            university or scholarship website before applying.
-        </div>
-        """,
+        dedent(
+            """
+            <div class="info-banner">
+                <strong>🤖 AI Transparency</strong>
+                <br>
+                EduPath AI provides AI-generated guidance.
+                Always verify admission requirements, fees and
+                deadlines on the official university or scholarship
+                website before applying.
+            </div>
+            """
+        ),
         unsafe_allow_html=True,
     )
 
@@ -227,16 +264,18 @@ if st.session_state.page == "Home":
 elif st.session_state.page == "Profile":
 
     st.markdown(
-        """
-        <div class="page-heading">
-            <div class="eyebrow">YOUR PROFILE</div>
-            <h1>Tell us about yourself</h1>
-            <p>
-                The more we know about your academic goals, the more useful
-                your recommendations become.
-            </p>
-        </div>
-        """,
+        dedent(
+            """
+            <div class="page-heading">
+                <div class="eyebrow">YOUR PROFILE</div>
+                <h1>Tell us about yourself</h1>
+                <p>
+                    The more we know about your academic goals,
+                    the more useful your recommendations become.
+                </p>
+            </div>
+            """
+        ),
         unsafe_allow_html=True,
     )
 
@@ -368,6 +407,7 @@ elif st.session_state.page == "Profile":
 
     if st.button(
         "💾 Save My Profile",
+        key="save_profile",
         use_container_width=True,
         type="primary",
     ):
@@ -395,36 +435,41 @@ elif st.session_state.page == "Profile":
 elif st.session_state.page == "AI Advisor":
 
     st.markdown(
-        """
-        <div class="page-heading">
-            <div class="eyebrow">AI ADVISOR</div>
-            <h1>Your personalized recommendations</h1>
-            <p>
-                Based on your academic profile, interests and goals.
-            </p>
-        </div>
-        """,
+        dedent(
+            """
+            <div class="page-heading">
+                <div class="eyebrow">AI ADVISOR</div>
+                <h1>Your personalized recommendations</h1>
+                <p>
+                    Based on your academic profile, interests and goals.
+                </p>
+            </div>
+            """
+        ),
         unsafe_allow_html=True,
     )
 
     if not st.session_state.profile:
 
         st.markdown(
-            """
-            <div class="empty-state">
-                <div class="empty-icon">👤</div>
-                <h2>Complete your profile first</h2>
-                <p>
-                    Tell us about your Intermediate subjects, interests,
-                    budget and career goals.
-                </p>
-            </div>
-            """,
+            dedent(
+                """
+                <div class="empty-state">
+                    <div class="empty-icon">👤</div>
+                    <h2>Complete your profile first</h2>
+                    <p>
+                        Tell us about your Intermediate subjects,
+                        interests, budget and career goals.
+                    </p>
+                </div>
+                """
+            ),
             unsafe_allow_html=True,
         )
 
         if st.button(
             "Create My Profile",
+            key="create_profile",
             type="primary",
         ):
             navigate("Profile")
@@ -435,19 +480,22 @@ elif st.session_state.page == "AI Advisor":
         profile = st.session_state.profile
 
         st.markdown(
-            f"""
-            <div class="profile-summary">
-                <strong>{profile.get("name", "Student")}</strong>
-                <span>{profile.get("education", "")}</span>
-                <span>{profile.get("percentage", 0)}%</span>
-                <span>{profile.get("location", "")}</span>
-            </div>
-            """,
+            dedent(
+                f"""
+                <div class="profile-summary">
+                    <strong>{profile.get("name", "Student")}</strong>
+                    <span>{profile.get("education", "")}</span>
+                    <span>{profile.get("percentage", 0)}%</span>
+                    <span>{profile.get("location", "")}</span>
+                </div>
+                """
+            ),
             unsafe_allow_html=True,
         )
 
         if st.button(
             "✨ Generate My Recommendations",
+            key="generate_recommendations",
             use_container_width=True,
             type="primary",
         ):
@@ -475,16 +523,18 @@ elif st.session_state.page == "AI Advisor":
 elif st.session_state.page == "AI Chat":
 
     st.markdown(
-        """
-        <div class="page-heading">
-            <div class="eyebrow">EDUPATH AI</div>
-            <h1>Ask anything about your next step</h1>
-            <p>
-                Ask about degrees, careers, universities, admissions,
-                scholarships or entrance tests.
-            </p>
-        </div>
-        """,
+        dedent(
+            """
+            <div class="page-heading">
+                <div class="eyebrow">EDUPATH AI</div>
+                <h1>Ask anything about your next step</h1>
+                <p>
+                    Ask about degrees, careers, universities,
+                    admissions, scholarships or entrance tests.
+                </p>
+            </div>
+            """
+        ),
         unsafe_allow_html=True,
     )
 
@@ -493,24 +543,28 @@ elif st.session_state.page == "AI Chat":
         if message["role"] == "user":
 
             st.markdown(
-                f"""
-                <div class="chat-user">
-                    {message["content"]}
-                </div>
-                """,
+                dedent(
+                    f"""
+                    <div class="chat-user">
+                        {message["content"]}
+                    </div>
+                    """
+                ),
                 unsafe_allow_html=True,
             )
 
         else:
 
             st.markdown(
-                f"""
-                <div class="chat-ai">
-                    <strong>🤖 EduPath AI</strong>
-                    <br><br>
-                    {message["content"]}
-                </div>
-                """,
+                dedent(
+                    f"""
+                    <div class="chat-ai">
+                        <strong>🤖 EduPath AI</strong>
+                        <br><br>
+                        {message["content"]}
+                    </div>
+                    """
+                ),
                 unsafe_allow_html=True,
             )
 
@@ -551,15 +605,18 @@ elif st.session_state.page == "AI Chat":
 elif st.session_state.page == "AI Agent":
 
     st.markdown(
-        """
-        <div class="page-heading">
-            <div class="eyebrow">AGENTIC AI</div>
-            <h1>Let EduPath work through the problem</h1>
-            <p>
-                The agent can research, compare and prepare plans for you.
-            </p>
-        </div>
-        """,
+        dedent(
+            """
+            <div class="page-heading">
+                <div class="eyebrow">AGENTIC AI</div>
+                <h1>Let EduPath work through the problem</h1>
+                <p>
+                    The agent can research, compare and prepare
+                    plans for you.
+                </p>
+            </div>
+            """
+        ),
         unsafe_allow_html=True,
     )
 
@@ -580,6 +637,7 @@ elif st.session_state.page == "AI Agent":
 
         if st.button(
             "🧠 Run Agent",
+            key="run_agent",
             use_container_width=True,
             type="primary",
         ):
@@ -609,11 +667,13 @@ elif st.session_state.page == "AI Agent":
         if st.session_state.agent_result:
 
             st.markdown(
-                """
-                <div class="agent-label">
-                    🧠 AGENT RESULT
-                </div>
-                """,
+                dedent(
+                    """
+                    <div class="agent-label">
+                        🧠 AGENT RESULT
+                    </div>
+                    """
+                ),
                 unsafe_allow_html=True,
             )
 
@@ -622,14 +682,17 @@ elif st.session_state.page == "AI Agent":
             )
 
             st.markdown(
-                """
-                <div class="confirmation-box">
-                    <strong>Before you take action</strong><br>
-                    Review the recommendations carefully.
-                    EduPath AI does not automatically submit applications
-                    or make consequential decisions for you.
-                </div>
-                """,
+                dedent(
+                    """
+                    <div class="confirmation-box">
+                        <strong>Before you take action</strong><br>
+                        Review the recommendations carefully.
+                        EduPath AI does not automatically submit
+                        applications or make consequential decisions
+                        for you.
+                    </div>
+                    """
+                ),
                 unsafe_allow_html=True,
             )
 
@@ -639,6 +702,7 @@ elif st.session_state.page == "AI Agent":
 
                 if st.button(
                     "❤️ Save Result",
+                    key="save_agent_result",
                     use_container_width=True,
                 ):
 
@@ -652,6 +716,7 @@ elif st.session_state.page == "AI Agent":
 
                 if st.button(
                     "Clear",
+                    key="clear_agent_result",
                     use_container_width=True,
                 ):
 
@@ -666,15 +731,17 @@ elif st.session_state.page == "AI Agent":
 elif st.session_state.page == "Explore":
 
     st.markdown(
-        """
-        <div class="page-heading">
-            <div class="eyebrow">EXPLORE</div>
-            <h1>Discover your opportunities</h1>
-            <p>
-                Explore sample Pakistani education opportunities.
-            </p>
-        </div>
-        """,
+        dedent(
+            """
+            <div class="page-heading">
+                <div class="eyebrow">EXPLORE</div>
+                <h1>Discover your opportunities</h1>
+                <p>
+                    Explore sample Pakistani education opportunities.
+                </p>
+            </div>
+            """
+        ),
         unsafe_allow_html=True,
     )
 
@@ -695,20 +762,22 @@ elif st.session_state.page == "Explore":
         for university in universities:
 
             st.markdown(
-                f"""
-                <div class="listing-card">
-                    <div>
+                dedent(
+                    f"""
+                    <div class="listing-card">
                         <h3>🏫 {university["name"]}</h3>
+
                         <p>
                             {university["city"]} · {university["type"]}
                         </p>
+
                         <p>
                             <strong>Programs:</strong>
                             {", ".join(university["programs"])}
                         </p>
                     </div>
-                </div>
-                """,
+                    """
+                ),
                 unsafe_allow_html=True,
             )
 
@@ -717,12 +786,14 @@ elif st.session_state.page == "Explore":
         for degree in get_degrees():
 
             st.markdown(
-                f"""
-                <div class="listing-card">
-                    <h3>🎓 {degree["name"]}</h3>
-                    <p>{degree["description"]}</p>
-                </div>
-                """,
+                dedent(
+                    f"""
+                    <div class="listing-card">
+                        <h3>🎓 {degree["name"]}</h3>
+                        <p>{degree["description"]}</p>
+                    </div>
+                    """
+                ),
                 unsafe_allow_html=True,
             )
 
@@ -731,12 +802,14 @@ elif st.session_state.page == "Explore":
         for scholarship in get_scholarships():
 
             st.markdown(
-                f"""
-                <div class="listing-card">
-                    <h3>💰 {scholarship["name"]}</h3>
-                    <p>{scholarship["description"]}</p>
-                </div>
-                """,
+                dedent(
+                    f"""
+                    <div class="listing-card">
+                        <h3>💰 {scholarship["name"]}</h3>
+                        <p>{scholarship["description"]}</p>
+                    </div>
+                    """
+                ),
                 unsafe_allow_html=True,
             )
 
@@ -745,12 +818,14 @@ elif st.session_state.page == "Explore":
         for test in get_entrance_tests():
 
             st.markdown(
-                f"""
-                <div class="listing-card">
-                    <h3>📝 {test["name"]}</h3>
-                    <p>{test["description"]}</p>
-                </div>
-                """,
+                dedent(
+                    f"""
+                    <div class="listing-card">
+                        <h3>📝 {test["name"]}</h3>
+                        <p>{test["description"]}</p>
+                    </div>
+                    """
+                ),
                 unsafe_allow_html=True,
             )
 
@@ -762,31 +837,35 @@ elif st.session_state.page == "Explore":
 elif st.session_state.page == "Saved":
 
     st.markdown(
-        """
-        <div class="page-heading">
-            <div class="eyebrow">MY SPACE</div>
-            <h1>Saved opportunities</h1>
-            <p>
-                Keep useful recommendations in one place.
-            </p>
-        </div>
-        """,
+        dedent(
+            """
+            <div class="page-heading">
+                <div class="eyebrow">MY SPACE</div>
+                <h1>Saved opportunities</h1>
+                <p>
+                    Keep useful recommendations in one place.
+                </p>
+            </div>
+            """
+        ),
         unsafe_allow_html=True,
     )
 
     if not st.session_state.saved:
 
         st.markdown(
-            """
-            <div class="empty-state">
-                <div class="empty-icon">🔖</div>
-                <h2>Nothing saved yet</h2>
-                <p>
-                    Your saved universities, scholarships and plans
-                    will appear here.
-                </p>
-            </div>
-            """,
+            dedent(
+                """
+                <div class="empty-state">
+                    <div class="empty-icon">🔖</div>
+                    <h2>Nothing saved yet</h2>
+                    <p>
+                        Your saved universities, scholarships and
+                        plans will appear here.
+                    </p>
+                </div>
+                """
+            ),
             unsafe_allow_html=True,
         )
 
@@ -795,10 +874,12 @@ elif st.session_state.page == "Saved":
         for item in st.session_state.saved:
 
             st.markdown(
-                f"""
-                <div class="listing-card">
-                    {item}
-                </div>
-                """,
+                dedent(
+                    f"""
+                    <div class="listing-card">
+                        {item}
+                    </div>
+                    """
+                ),
                 unsafe_allow_html=True,
             )
