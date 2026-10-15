@@ -107,41 +107,38 @@ header {
    NAVIGATION BUTTONS
 ===================================================== */
 
-div[data-testid="column"] .stButton > button {
-    width: 100% !important;
+/* Navigation */
 
+.nav-line {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 8px 0 35px 0;
+}
+
+div[data-testid="column"] .stButton button {
     background: #ffffff !important;
-
     color: #334155 !important;
-
     border: 1px solid #e2e8f0 !important;
-
     border-radius: 12px !important;
-
     min-height: 42px !important;
-
     font-size: 13px !important;
-
     font-weight: 700 !important;
-
-    box-shadow:
-        0 3px 10px rgba(15,23,42,0.04) !important;
-
-    transition:
-        all 0.2s ease !important;
+    box-shadow: 0 3px 10px rgba(15,23,42,0.04) !important;
 }
 
-div[data-testid="column"] .stButton > button:hover {
+div[data-testid="column"] .stButton button p {
+    color: #334155 !important;
+}
+
+div[data-testid="column"] .stButton button:hover {
     background: #eef2ff !important;
-
     color: #4f46e5 !important;
-
     border-color: #c7d2fe !important;
-
-    transform: translateY(-1px);
 }
 
-
+div[data-testid="column"] .stButton button:hover p {
+    color: #4f46e5 !important;
+}
 /* =====================================================
    ALL OTHER BUTTONS
 ===================================================== */
