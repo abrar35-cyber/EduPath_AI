@@ -120,36 +120,29 @@ st.markdown(
 
 if st.session_state.page == "Home":
 
+    
     # -------------------------
     # HERO
     # -------------------------
 
     st.html("""
-<section class="hero">
+    <section class="hero">
+        <div class="hero-badge">
+            ✨ AI-powered guidance for Pakistani students
+        </div>
 
-    <div class="hero-badge">
-        ✨ AI-powered guidance for Pakistani students
-    </div>
+        <h1>
+            You passed Intermediate.<br>
+            <span>What comes next?</span>
+        </h1>
 
-    <h1>
-        You passed Intermediate.<br>
-        <span>What comes next?</span>
-    </h1>
-
-    <p>
-        Discover the right degree, university, scholarship
-        and career path based on your marks, interests,
-        location and goals.
-    </p>
-
-</section>
-""")
-
-            </section>
-            """
-        ),
-        unsafe_allow_html=True,
-    )
+        <p>
+            Discover the right degree, university, scholarship
+            and career path based on your marks, interests,
+            location and goals.
+        </p>
+    </section>
+    """)
 
     c1, c2 = st.columns(2)
 
