@@ -574,6 +574,65 @@ div[data-testid="column"] .stButton button:hover p {
     }
 }
 
+
+/* =====================================================
+   FIX PROFILE FORM TEXT VISIBILITY
+===================================================== */
+
+/* Make all form labels readable */
+.stTextInput label,
+.stNumberInput label,
+.stSelectbox label,
+.stMultiSelect label,
+[data-testid="stWidgetLabel"] p {
+    color: #334155 !important;
+    font-weight: 600 !important;
+}
+
+/* Text input fields */
+.stTextInput input,
+.stNumberInput input {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+}
+
+/* Dropdown and multiselect boxes */
+div[data-baseweb="select"] > div {
+    background-color: #ffffff !important;
+    border-color: #cbd5e1 !important;
+}
+
+/* Dropdown and selected option text */
+div[data-baseweb="select"] input,
+div[data-baseweb="select"] span,
+div[data-baseweb="select"] div[class*="singleValue"],
+div[data-baseweb="select"] div[class*="placeholder"] {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+}
+
+/* Number input controls */
+.stNumberInput button {
+    background-color: #ffffff !important;
+    color: #334155 !important;
+}
+
+/* Placeholder text */
+.stTextInput input::placeholder {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+    opacity: 1 !important;
+}
+
+/* Dropdown menu options */
+div[role="listbox"],
+div[role="option"] {
+    color: #0f172a !important;
+    background-color: #ffffff !important;
+}
+
 </style>
         """,
         unsafe_allow_html=True,
