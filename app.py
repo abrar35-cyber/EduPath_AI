@@ -7,12 +7,6 @@ from agent import (
     create_application_checklist,
     find_matching_scholarships,
 )
-from data import (
-    get_universities,
-    get_degrees,
-    get_scholarships,
-    get_entrance_tests,
-)
 from style import apply_styles
 
 
@@ -85,7 +79,7 @@ st.markdown(
 # NAVIGATION
 # =========================================================
 
-nav_cols = st.columns(7)
+nav_cols = st.columns(6)
 
 nav_items = [
     ("Home", "Home"),
@@ -93,7 +87,6 @@ nav_items = [
     ("Advisor", "AI Advisor"),
     ("Chat", "AI Chat"),
     ("Agent", "AI Agent"),
-    ("Explore", "Explore"),
     ("Saved", "Saved"),
 ]
 
@@ -716,112 +709,6 @@ elif st.session_state.page == "AI Agent":
 
                     st.session_state.agent_result = None
                     st.rerun()
-
-
-# =========================================================
-# EXPLORE
-# =========================================================
-
-elif st.session_state.page == "Explore":
-
-    st.markdown(
-        dedent(
-            """
-            <div class="page-heading">
-                <div class="eyebrow">EXPLORE</div>
-                <h1>Discover your opportunities</h1>
-                <p>
-                    Explore sample Pakistani education opportunities.
-                </p>
-            </div>
-            """
-        ),
-        unsafe_allow_html=True,
-    )
-
-    category = st.selectbox(
-        "Explore",
-        [
-            "Universities",
-            "Degrees",
-            "Scholarships",
-            "Entrance Tests",
-        ],
-    )
-
-    if category == "Universities":
-
-        universities = get_universities()
-
-        for university in universities:
-
-            st.markdown(
-                dedent(
-                    f"""
-                    <div class="listing-card">
-                        <h3>🏫 {university["name"]}</h3>
-
-                        <p>
-                            {university["city"]} · {university["type"]}
-                        </p>
-
-                        <p>
-                            <strong>Programs:</strong>
-                            {", ".join(university["programs"])}
-                        </p>
-                    </div>
-                    """
-                ),
-                unsafe_allow_html=True,
-            )
-
-    elif category == "Degrees":
-
-        for degree in get_degrees():
-
-            st.markdown(
-                dedent(
-                    f"""
-                    <div class="listing-card">
-                        <h3>🎓 {degree["name"]}</h3>
-                        <p>{degree["description"]}</p>
-                    </div>
-                    """
-                ),
-                unsafe_allow_html=True,
-            )
-
-    elif category == "Scholarships":
-
-        for scholarship in get_scholarships():
-
-            st.markdown(
-                dedent(
-                    f"""
-                    <div class="listing-card">
-                        <h3>💰 {scholarship["name"]}</h3>
-                        <p>{scholarship["description"]}</p>
-                    </div>
-                    """
-                ),
-                unsafe_allow_html=True,
-            )
-
-    else:
-
-        for test in get_entrance_tests():
-
-            st.markdown(
-                dedent(
-                    f"""
-                    <div class="listing-card">
-                        <h3>📝 {test["name"]}</h3>
-                        <p>{test["description"]}</p>
-                    </div>
-                    """
-                ),
-                unsafe_allow_html=True,
-            )
 
 
 # =========================================================
